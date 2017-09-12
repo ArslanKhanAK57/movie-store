@@ -1,0 +1,27 @@
+{
+  "name": "movie-store",
+  "version": "0.0.1",
+  "description": "just another online movie store",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArslanKhanAK57/movie-store.git"
+  },
+  "keywords": [
+    "online",
+    "movie",
+    "movies",
+    "store",
+    "rental",
+    "rent"
+  ],
+  "author": "arslan khan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArslanKhanAK57/movie-store/issues"
+  },
+  "homepage": "https://github.com/ArslanKhanAK57/movie-store#readme"
+}
