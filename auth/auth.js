@@ -1,4 +1,8 @@
-module.exports = function(passport, LocalStrategy, mongoose, config) {
+module.exports = function(passport, LocalStrategy, mongoose, config, models) {
 
-    passport.use(new LocalStrategy({}))
+    passport.use(new LocalStrategy(
+        function(username, password, done) {
+
+        }
+    ))
 };

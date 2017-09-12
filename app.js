@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var config = require('./config/config.js');
 var ConnectMongo = require('connect-mongo')(session);
-var mongoose = require('mongoose');
+var mongoose = require('mongoose').connect(config.dbURL);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var models = require('./models/models.js')(mongoose);
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', hoganExpress);
