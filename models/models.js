@@ -1,6 +1,10 @@
-module.exports = function(mongoose) {
 
-    return {
-        // user : require('./user.js')(mongoose)
-    };
+
+module.exports = function(mongoose){
+
+    var models = {};
+    models.user = require('./user.js')(mongoose);
+
+    return models;
+
 };

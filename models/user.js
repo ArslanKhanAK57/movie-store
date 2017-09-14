@@ -1,7 +1,9 @@
 module.exports = function(mongoose) {
 
-    var user = new mongoose.Schema({
-        id : mongoose.Schema.ObjectId,
+    var Schema = mongoose.Schema;
+
+    var user = new Schema({
+        id : Schema.ObjectId,
         email : String,
         password : String
     });

@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var config = require('./config/config.js');
 var ConnectMongo = require('connect-mongo')(session);
-var mongoose = require('mongoose').connect(config.dbURL);
+var mongoose = require('mongoose');
+mongoose.connect(config.dbURL, {
+    useMongoClient : true
+});
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var models = require('./models/models.js')(mongoose);
@@ -34,6 +37,9 @@ else {
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+
+require('./auth/auth.js')(passport, LocalStrategy, models);
+require('./routes/routes.js')(express, app, passport, models);
 
 app.listen((process.env.PORT || 3000), function() {
     console.log('Movie store running on port: ' + (process.env.PORT || 3000));
