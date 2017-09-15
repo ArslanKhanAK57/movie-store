@@ -30,7 +30,9 @@ if ( env === 'production' ) {
 }
 else {
     app.use(session({
-        "secret" : config.sessionSecret
+        secret : config.sessionSecret,
+        resave : true,
+        saveUninitialized : true
     }));
 }
 

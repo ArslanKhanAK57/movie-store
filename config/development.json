@@ -1,4 +1,4 @@
 {
-  "dbURL" : "mongodb://moviestoreuser:moviestoreuser>@ds133814.mlab.com:33814/moviestore",
+  "dbURL" : "mongodb://chatcatuser:chatcatuser@ds129024.mlab.com:29024/chatcat11",
   "sessionSecret" : "DFSDFSDFSDFSDFSDFSFDGSDFGSDFGSDFGSDFGSDFGSDFGSDFGSDFGSDFGSDFGSDFGSD"
 }

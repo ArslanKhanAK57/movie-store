@@ -17,7 +17,6 @@ module.exports = function(express, app, passport, models) {
     // });
 
     router.post('/login', function(req, res, next) {
-        console.log('asdfasd;lfjasl;dfja;lsdjfalsdj f;lkaksdjkf;lasjdf;lajsd;fljasd;lkfjads;lfja;sdlfja;sldkfja;lksdjf' + models.user);
         models.user.findOne({email : 'arslan'}, function(err, user) {
             console.log('err' + err);
             console.log('user' + user);
