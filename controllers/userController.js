@@ -2,8 +2,7 @@
 
 module.exports = function (user) {
 
-    var signup = function(req, res, next) {
-        var userToBeCreated = req.body;
+    var signup = function(userToBeCreated, next) {
         console.log('in signup');
         var newUser = new user({
             email : userToBeCreated.email,

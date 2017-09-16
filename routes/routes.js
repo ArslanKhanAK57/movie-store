@@ -11,11 +11,11 @@ module.exports = function(express, app, passport, controllers) {
         }
     };
 
-    router.get('/', function(req, res, next) {
+    router.get('/', function(req, res) {
         res.render('index');
     });
 
-    router.get('/login', function(req, res, next) {
+    router.get('/login', function(req, res) {
         res.render('login');
     });
 
@@ -25,16 +25,39 @@ module.exports = function(express, app, passport, controllers) {
         res.redirect('/dashboard');
     });
 
-    router.get('/signup', function(req, res, next) {
+    router.get('/allmovies', secureRouts, function(req, res){
+        controllers.movieController.findMovies({}, function(movies){
+            res.json(JSON.stringify(movies));
+        });
+    });
+
+    router.get('/addmovie', secureRouts, function(req, res) {
+        res.render('admin/addmovie');
+    });
+
+    router.post('/addmovie', secureRouts, function(req, res) {
+        controllers.movieController.addNewMovie(req.body, function(){
+            res.redirect('/dashboard');
+        })
+    });
+
+    router.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+    router.get('/signup', function(req, res) {
         res.render('signup');
     });
 
-    router.post('/signup', controllers.userController.signup, function(req, res, next) {
-        console.log(req.body + 'asdfasdfasdasdfadsf');
-        res.redirect('/login');
+    router.post('/signup', function(req, res) {
+        controllers.userController.signup(req.body, function(){
+            console.log(req.body + 'asdfasdfasdasdfadsf');
+            res.redirect('/login');
+        })
     });
 
-    router.get('/dashboard', secureRouts, function(req, res, next) {
+    router.get('/dashboard', secureRouts, function(req, res) {
         if ( req.user.role === 'ADMIN' ) {
             res.render('admin/dashboard');
         }

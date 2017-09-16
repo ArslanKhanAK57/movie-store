@@ -1,1 +1,68 @@
-admin dashboard
+
+
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(function(){
+            $.ajax('/allmovies', {
+                type : 'GET',
+                dataType : 'json',
+                success : function(data, status, header, config) {
+                    var movies = JSON.parse(data);
+                    console.log(movies);
+                    $("#movies").find("tr:gt(0)").remove();
+                    for ( var i = 0 ; i < movies.length ; i++ ) {
+                        var movieRow = '<tr>';
+                        movieRow += '<td>' + movies[i].name + '</td>';
+                        movieRow += '<td>' + movies[i].writer + '</td>';
+                        movieRow += '<td>' + movies[i].director + '</td>';
+                        movieRow += '<td>' + movies[i].producer + '</td>';
+                        movieRow += '<td>' + movies[i].editor + '</td>';
+                        movieRow += '<td>' + movies[i].actors + '</td>';
+                        movieRow += '<td>' + movies[i].year + '</td>';
+                        movieRow += '<td>' + movies[i].status + '</td>';
+                        movieRow += '<td>' + movies[i].timesRented + '</td>';
+                        movieRow += '<td>' + movies[i].currentlyRentedBy + '</td>';
+                        movieRow += '<td>' + movies[i].createdDate + '</td>';
+                        movieRow += '</tr>';
+                        $("#movies").append(movieRow);
+                    }
+                },
+                error : function(data, status, header, config) {
+
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <a href="/logout">Signout</a>
+    <br><br>
+
+    <a href="/addmovie">Add New Movie</a>
+    <br><br>
+
+    <table id="movies">
+        <tr>
+           <th>Name</th>
+           <th>Writer</th>
+           <th>Director</th>
+           <th>Producer</th>
+           <th>Editor</th>
+           <th>Actors</th>
+           <th>Year</th>
+           <th>Status</th>
+           <th>Times Rented</th>
+           <th>Currently Rented By</th>
+           <th>Crated Date</th>
+           <th>Action</th>
+        </tr>
+    </table>
+</body>
+</html>
