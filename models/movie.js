@@ -3,7 +3,6 @@ module.exports = function(mongoose) {
     var Schema = mongoose.Schema;
 
     var movie = new Schema({
-        id : Schema.ObjectId,
         name : String,
         writer : String,
         director : String,

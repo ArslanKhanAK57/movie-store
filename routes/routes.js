@@ -1,36 +1,46 @@
-module.exports = function(express, app, passport, models) {
+module.exports = function(express, app, passport, controllers) {
 
     var router = express.Router();
+
+    var secureRouts = function(req, res, next) {
+        if ( req.isAuthenticated() ) {
+            next();
+        }
+        else {
+            res.redirect('/');
+        }
+    };
 
     router.get('/', function(req, res, next) {
         res.render('index');
     });
 
     router.get('/login', function(req, res, next) {
-        res.render('login')
+        res.render('login');
     });
 
-    // router.post('/login', passport.authenticate('local', {
-    //     failureRedirect : '/login'
-    // }), function(req, res, next) {
-    //     res.redirect('/');
-    // });
+    router.post('/login', passport.authenticate('local', {
+        failureRedirect : '/login'
+    }), function(req, res, next) {
+        res.redirect('/dashboard');
+    });
 
-    router.post('/login', function(req, res, next) {
-        models.user.findOne({email : 'arslan'}, function(err, user) {
-            console.log('err' + err);
-            console.log('user' + user);
-            // if ( err ) {
-            //     return done(err);
-            // }
-            // if ( !user ) {
-            //     return done(null, false);
-            // }
-            // if ( user ) {
-            //     return done(null, user);
-            // }
-            res.redirect('/');
-        })
+    router.get('/signup', function(req, res, next) {
+        res.render('signup');
+    });
+
+    router.post('/signup', controllers.userController.signup, function(req, res, next) {
+        console.log(req.body + 'asdfasdfasdasdfadsf');
+        res.redirect('/login');
+    });
+
+    router.get('/dashboard', secureRouts, function(req, res, next) {
+        if ( req.user.role === 'ADMIN' ) {
+            res.render('admin/dashboard');
+        }
+        else {
+            res.render('customer/dashboard');
+        }
     });
 
     app.use('/', router);
