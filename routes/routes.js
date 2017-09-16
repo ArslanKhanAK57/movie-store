@@ -41,6 +41,25 @@ module.exports = function(express, app, passport, controllers) {
         })
     });
 
+    router.get('/removemovie/:id', secureRouts, function(req, res) {
+        controllers.movieController.removeMovieById(req.params.id, function() {
+            res.redirect('/dashboard');
+        });
+    });
+
+    router.get('/editmovie/:id', secureRouts, function(req, res) {
+        controllers.movieController.findOne({_id : req.params.id}, function(err, movie) {
+            res.render('admin/editmovie', {movie : movie});
+        });
+    });
+
+    router.post('/editmovie/:id', secureRouts, function(req, res) {
+        console.log('in edit movie');
+        controllers.movieController.editMovie({_id : req.params.id}, req.body, function(err, movie) {
+            res.redirect('/dashboard');
+        });
+    });
+
     router.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');

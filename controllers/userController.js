@@ -11,7 +11,8 @@ module.exports = function (user) {
             address : userToBeCreated.address,
             name : userToBeCreated.name,
             status : 'ACTIVE',
-            createdDate : new Date()
+            createdDate : new Date(),
+            updateDate : new Date()
         });
 
         newUser.save(newUser, function(err) {

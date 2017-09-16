@@ -26,7 +26,8 @@ module.exports = function (movie) {
             status : 'ACTIVE',
             timesRented : 0,
             currentlyRentedBy : null,
-            createdDate : new Date()
+            createdDate : new Date(),
+            updateDate : new Date()
         });
 
         newMovie.save(function(err) {
@@ -34,10 +35,38 @@ module.exports = function (movie) {
         });
     };
 
+    var removeMovieById = function(movieId, next) {
+        movie.remove({_id : movieId}, function(err) {
+            next();
+        })
+    };
+
+    var editMovie = function(movieId, movieToBeEdited, next) {
+        console.log(movieId);
+        console.log(movieToBeEdited);
+        movie.findOneAndUpdate({_id : movieId}, {
+            $set: {
+                name: movieToBeEdited.name,
+                writer: movieToBeEdited.writer,
+                director: movieToBeEdited.director,
+                producer: movieToBeEdited.producer,
+                editor: movieToBeEdited.editor,
+                actors: movieToBeEdited.actors,
+                year: movieToBeEdited.year,
+                status: movieToBeEdited.status,
+                updateDate: new Date()
+            }
+        }, function(err, movie) {
+            next();
+        });
+    };
+
     return {
         findMovies : findMovies,
         findOne : findOne,
-        addNewMovie : addNewMovie
+        addNewMovie : addNewMovie,
+        removeMovieById: removeMovieById,
+        editMovie : editMovie
     };
 
 };

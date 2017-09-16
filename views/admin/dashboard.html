@@ -30,6 +30,7 @@
                         movieRow += '<td>' + movies[i].timesRented + '</td>';
                         movieRow += '<td>' + movies[i].currentlyRentedBy + '</td>';
                         movieRow += '<td>' + movies[i].createdDate + '</td>';
+                        movieRow += '<td><a href="removemovie/' + movies[i]._id + '">Delete</a> | <a href="editmovie/' + movies[i]._id + '">Edit</a></td>';
                         movieRow += '</tr>';
                         $("#movies").append(movieRow);
                     }
@@ -39,6 +40,8 @@
                 }
             });
         });
+
+
     </script>
 </head>
 <body>
@@ -47,6 +50,8 @@
 
     <a href="/addmovie">Add New Movie</a>
     <br><br>
+
+
 
     <table id="movies">
         <tr>

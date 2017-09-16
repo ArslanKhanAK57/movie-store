@@ -13,7 +13,8 @@ module.exports = function(mongoose) {
         status : String,
         timesRented : Number,
         currentlyRentedBy : String,
-        createdDate : Date
+        createdDate : Date,
+        updateDate : Date
     });
 
     return mongoose.model('movie', movie);

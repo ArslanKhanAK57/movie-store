@@ -5,7 +5,8 @@ module.exports = function(mongoose) {
     var customer = new Schema({
         userId : String,
         totalRented : Number,
-        createdDate : Date
+        createdDate : Date,
+        updateDate : Date
     });
 
     return mongoose.model('customer', customer);

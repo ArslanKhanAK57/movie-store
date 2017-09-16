@@ -9,7 +9,8 @@ module.exports = function(mongoose) {
         address : String,
         name : String,
         status : String,
-        createdDate : Date
+        createdDate : Date,
+        updateDate : Date
     });
 
     return mongoose.model('user', user);
