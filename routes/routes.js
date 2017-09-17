@@ -25,38 +25,37 @@ module.exports = function(express, app, passport, controllers) {
         res.redirect('/dashboard');
     });
 
-    router.get('/allmovies', secureRouts, function(req, res){
-        controllers.movieController.findMovies({}, function(movies){
+    router.get('/movies', secureRouts, function(req, res){
+        controllers.movieController.findMovies(req.query.searchCriteria, req.query.searchString, function(movies){
             res.json(JSON.stringify(movies));
         });
     });
 
-    router.get('/addmovie', secureRouts, function(req, res) {
-        res.render('admin/addmovie');
-    });
-
-    router.post('/addmovie', secureRouts, function(req, res) {
+    router.post('/movies', secureRouts, function(req, res) {
         controllers.movieController.addNewMovie(req.body, function(){
             res.redirect('/dashboard');
         })
     });
 
-    router.get('/removemovie/:id', secureRouts, function(req, res) {
+    router.delete('/movies/:id', secureRouts, function(req, res) {
         controllers.movieController.removeMovieById(req.params.id, function() {
             res.redirect('/dashboard');
         });
     });
 
-    router.get('/editmovie/:id', secureRouts, function(req, res) {
-        controllers.movieController.findOne({_id : req.params.id}, function(err, movie) {
-            res.render('admin/editmovie', {movie : movie});
+    router.put('/movies/:id', secureRouts, function(req, res) {
+        controllers.movieController.editMovie({_id : req.params.id}, req.body, function(err, movie) {
+            res.send();
         });
     });
 
-    router.post('/editmovie/:id', secureRouts, function(req, res) {
-        console.log('in edit movie');
-        controllers.movieController.editMovie({_id : req.params.id}, req.body, function(err, movie) {
-            res.redirect('/dashboard');
+    router.get('/movies/add', secureRouts, function(req, res) {
+        res.render('admin/addmovie');
+    });
+
+    router.get('/movies/edit/:id', secureRouts, function(req, res) {
+        controllers.movieController.findOne({_id : req.params.id}, function(err, movie) {
+            res.render('admin/editmovie', {movie : movie});
         });
     });
 
@@ -71,7 +70,6 @@ module.exports = function(express, app, passport, controllers) {
 
     router.post('/signup', function(req, res) {
         controllers.userController.signup(req.body, function(){
-            console.log(req.body + 'asdfasdfasdasdfadsf');
             res.redirect('/login');
         })
     });

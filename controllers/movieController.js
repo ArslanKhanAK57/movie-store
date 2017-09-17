@@ -2,10 +2,19 @@
 
 module.exports = function (movie) {
 
-    var findMovies = function(query, next) {
-        movie.find(query, function(err, movies) {
-            next(movies);
-        })
+    var findMovies = function(searchCriteria, searchString, next) {
+        if ( searchCriteria === 'ALL' ) {
+            movie.find({}, function(err, movies) {
+                next(movies);
+            })
+        }
+        else {
+            var query = {};
+            query[searchCriteria] = searchString;
+            movie.find(query, function(err, movies) {
+                next(movies);
+            })
+        }
     };
 
     var findOne = function(query, next) {
@@ -42,8 +51,6 @@ module.exports = function (movie) {
     };
 
     var editMovie = function(movieId, movieToBeEdited, next) {
-        console.log(movieId);
-        console.log(movieToBeEdited);
         movie.findOneAndUpdate({_id : movieId}, {
             $set: {
                 name: movieToBeEdited.name,

@@ -1,51 +1,80 @@
 <html>
 
+<head>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+
+        function editMovie() {
+            var movie = {
+                name : $('#name').val(),
+                writer : $('#writer').val(),
+                director : $('#director').val(),
+                producer : $('#producer').val(),
+                editor : $('#editor').val(),
+                actors : $('#actors').val(),
+                year : $('#year').val(),
+                status : $('#status').val()
+            };
+            $.ajax('/movies/' + $('#_id').val(), {
+                type : 'PUT',
+                dataType : 'json',
+                data : movie,
+                success : function(data, status, header, config) {
+
+                },
+                error : function(data, status, header, config) {
+
+                }
+            });
+        }
+    </script>
+</head>
 <body>
 
-<a href="/logout">Signout</a>
-<br><br>
+    <a href="/logout">Signout</a>
+    <br><br>
 
-<form action="/editmovie/{{movie._id}}" method="post">
+    <input type="hidden" id="_id" name="name" value="{{movie._id}}"/><br/>
+
     <div>
         <label>Name:</label>
-        <input type="text" name="name" value="{{movie.name}}"/><br/>
+        <input type="text" id="name" name="name" value="{{movie.name}}"/><br/>
     </div>
     <div>
         <label>Writer:</label>
-        <input type="text" name="writer" value="{{movie.writer}}"/><br/>
+        <input type="text" id="writer" name="writer" value="{{movie.writer}}"/><br/>
     </div>
     <div>
         <label>Director:</label>
-        <input type="text" name="director" value="{{movie.director}}"/>
+        <input type="text" id="director" name="director" value="{{movie.director}}"/>
     </div>
     <div>
         <label>Producer:</label>
-        <input type="text" name="producer" value="{{movie.producer}}"/>
+        <input type="text" id="producer" name="producer" value="{{movie.producer}}"/>
     </div>
     <div>
         <label>Editor:</label>
-        <input type="text" name="editor" value="{{movie.editor}}"/>
+        <input type="text" id="editor" name="editor" value="{{movie.editor}}"/>
     </div>
     <div>
         <label>Actors:</label>
-        <input type="text" name="actors" value="{{movie.actors}}"/>
+        <input type="text" id="actors" name="actors" value="{{movie.actors}}"/>
     </div>
     <div>
         <label>Year:</label>
-        <input type="text" name="year" value="{{movie.year}}"/>
+        <input type="text" id="year" name="year" value="{{movie.year}}"/>
     </div>
     <div>
         <label>Status:</label>
-        <input type="text" name="status" value="{{movie.status}}"/>
+        <input type="text" id="status" name="status" value="{{movie.status}}"/>
     </div>
     <br>
     <div>
-        <input type="submit" value="Edit Movie"/>
+        <input type="button" value="Edit Movie" onclick="editMovie()"/>
     </div>
-</form>
 
-<br>
-<a href="/dashboard">Click here to go back to dashboard</a>
+    <br>
+    <a href="/dashboard">Click here to go back to dashboard</a>
 
 </body>
 </html>

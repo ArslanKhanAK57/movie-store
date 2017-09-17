@@ -12,17 +12,14 @@ module.exports = function(passport, LocalStrategy, models, controllers) {
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
-            console.log('success');
             controllers.userController.findOne({email : username, password : password}, function(err, user) {
                 if ( err ) {
                     return done(err);
                 }
                 if ( !user ) {
-                    console.log('user not found');
                     return done(null, false);
                 }
                 if ( user ) {
-                    console.log('user found');
                     return done(null, user);
                 }
             })

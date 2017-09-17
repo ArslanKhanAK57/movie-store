@@ -3,7 +3,6 @@
 module.exports = function (user) {
 
     var signup = function(userToBeCreated, next) {
-        console.log('in signup');
         var newUser = new user({
             email : userToBeCreated.email,
             password : userToBeCreated.password,
