@@ -11,6 +11,10 @@ module.exports = function(express, app, passport, controllers) {
         }
     };
 
+    /*
+    * ########################################### AUTH ROUTES ###############################################
+    * */
+
     router.get('/', function(req, res) {
         res.render('index');
     });
@@ -21,9 +25,18 @@ module.exports = function(express, app, passport, controllers) {
 
     router.post('/login', passport.authenticate('local', {
         failureRedirect : '/login'
-    }), function(req, res, next) {
+    }), function(req, res) {
         res.redirect('/dashboard');
     });
+
+    router.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+    /*
+    * ########################################### MOVIE ROUTES ###############################################
+    * */
 
     router.get('/movies', secureRouts, function(req, res){
         controllers.movieController.findMovies(req.query.searchCriteria, req.query.searchString, function(movies){
@@ -59,10 +72,9 @@ module.exports = function(express, app, passport, controllers) {
         });
     });
 
-    router.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+    /*
+    * ########################################### USER ROUTES ###############################################
+    * */
 
     router.get('/signup', function(req, res) {
         res.render('signup');
